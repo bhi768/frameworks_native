@@ -89,6 +89,9 @@ struct InputReaderConfiguration {
         // The set of disabled input devices (disabledDevices) has changed.
         CHANGE_ENABLED_STATE = 1 << 9,
 
+        // Volume keys rotation option changed.
+        CHANGE_VOLUME_KEYS_ROTATION = 1 << 10,
+
         // Swap keys changed.
         CHANGE_SWAP_KEYS = 1 << 20,
 
@@ -188,6 +191,10 @@ struct InputReaderConfiguration {
     // Swap back with recents button
     bool swapKeys;
 
+    // Remap volume keys according to display rotation
+    // 0 - disabled, 1 - phone or hybrid rotation mode, 2 - tablet rotation mode
+    int volumeKeysRotationMode;
+
     InputReaderConfiguration() :
             virtualKeyQuietTime(0),
             pointerVelocityControlParameters(1.0f, 500.0f, 3000.0f, 3.0f),
@@ -205,7 +212,8 @@ struct InputReaderConfiguration {
             pointerGestureMovementSpeedRatio(0.8f),
             pointerGestureZoomSpeedRatio(0.3f),
             showTouches(false),
-            swapKeys(false) { }
+            swapKeys(false),
+            volumeKeysRotationMode(0) { }
 
     bool getDisplayViewport(ViewportType viewportType, const String8* displayId,
             DisplayViewport* outViewport) const;
@@ -1109,7 +1117,8 @@ private:
     uint32_t mSource;
     int32_t mKeyboardType;
 
-    int32_t mOrientation; // orientation for dpad keys
+    int32_t mRotationMapOffset; // determines if and how volume keys rotate
+    int32_t mOrientation; // orientation for dpad and volume keys
 
     bool mSwapKeys; // swap back with recents button
 
