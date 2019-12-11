@@ -567,6 +567,7 @@ Scheduler::RefreshRateType Scheduler::calculateRefreshRateType() {
     }
 
     // Content detection is on, find the appropriate refresh rate with minimal error
+    // TODO(b/139751853): Scan allowed refresh rates only (SurfaceFlinger::mAllowedDisplayConfigs)
     auto begin = mRefreshRateConfigs.getRefreshRates().cbegin();
 
     // Skip POWER_SAVING config as it is not a real config
